@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Receipt Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-box, .history-box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Form Section -->
+        <div class="form-box">
+            <h2>Create New Receipt</h2>
+            <form action="/submit" method="POST">
+                <label for="payer">Payer Name:</label>
+                <input type="text" name="payer" required>
+
+                <label for="items">Items (format: item:price,discount):</label>
+                <textarea name="items" placeholder="e.g. tea:100,10" required></textarea>
+
+                <label for="language">Language:</label>
+                <select name="language" required>
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="telugu">Telugu</option>
+                    <option value="tamil">Tamil</option>
+                    <option value="urdu">Urdu</option>
+                </select>
+
+                <input type="submit" value="Generate Receipt">
+            </form>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-box">
+            <h2>Customer Receipt History</h2>
+            <table>
+                <thead>
+                   <tr>
+                     <th>ID</th>
+                     <th>Payer Name</th>
+                     <th>Language</th>
+                     <th>Total (₹)</th>
+                     <th>Date</th>  <!-- New column -->
+                   </tr>
+
+                </thead>
+                <tbody>
+                    {% for row in history %}
+                    <tr>
+                      <td>{{ row[0] }}</td>
+                      <td>{{ row[1] }}</td>
+                      <td>{{ row[2] }}</td>
+                      <td>{{ '%.2f'|format(row[3]) }}</td>
+                      <td>{{ row[4] }}</td>  <!-- Date column -->
+                      </tr>
+                   {% endfor %}
+
+                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

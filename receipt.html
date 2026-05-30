@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Generated Receipt</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      width: 380px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    pre {
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+
+    .summary {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .qr {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .qr img {
+      width: 150px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <h2>Receipt</h2>
+
+  <pre>
+Payer: {{ payer }}
+
+{% for line in receipt_lines %}
+{{ line }}
+{% endfor %}
+
+Total: ₹{{ total }}
+  </pre>
+
+  <div class="summary">
+    {% if language == 'hindi' %}
+      आपको ₹{{ discount }} की छूट मिली
+    {% elif language == 'telugu' %}
+      మీకు ₹{{ discount }} తగ్గింపు లభించింది
+    {% elif language == 'tamil' %}
+      உங்களுக்கு ₹{{ discount }} தள்ளுபடி கிடைத்தது
+    {% elif language == 'urdu' %}
+      آپ کو ₹{{ discount }} کی چھوٹ ملی
+    {% else %}
+      You received a discount of ₹{{ discount }}
+    {% endif %}
+  </div>
+
+  <div class="qr">
+    <img src="/static/qr.png" alt="QR Code">
+  </div>
+
+</div>
+</body>
+</html>
