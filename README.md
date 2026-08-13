@@ -34,7 +34,7 @@ Multilingual Receipt Generator is a web-based application developed as a final y
 
 ## Individual Contribution
 
-My contribution focused on the development of QR code generation functionality, integration of receipt data into QR codes, multilingual receipt generation support, testing, debugging, and documentation.
+Developed the QR code generation functionality and integrated receipt data with QR codes. Contributed to multilingual receipt generation, testing, debugging, and project documentation.
 
 ## Future Enhancements
 
